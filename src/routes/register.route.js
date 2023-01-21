@@ -8,6 +8,32 @@ registerRoute.get("/", async (req, res) => {
     const register = await registerModel.findOne({});
     return res.status(200).send({ message: "Registered Users", desc: "", register })
 })
+registerRoute.post("/getprofile", async (req, res) => {
+    const { token } = req.body;
+    console.log('token:', token)
+    try {
+        if (!token) {
+            return res.status(401).send({
+                data: [],
+                message: "Unauthorized Person",
+                flag: false,
+                desc: "",
+            });
+        } else if (token) {
+            const verification = jwt.decode(token, "SECRET_register");
+            console.log('verification:', verification)
+            return res.status(200).send({ message: "Registered Users", desc: "", register: verification })
+        }
+    } catch (error) {
+        console.log("error:", error);
+        return res.status(403).send({
+            data: [],
+            message: "Error Occur",
+            flag: false,
+            desc: error.message,
+        });
+    }
+})
 
 registerRoute.post("/register", async (req, res) => {
     const { name, email, password } = req.body;
