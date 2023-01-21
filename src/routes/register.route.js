@@ -12,10 +12,11 @@ registerRoute.get("/", async (req, res) => {
 registerRoute.post("/register", async (req, res) => {
     const { name, email, password } = req.body;
     const registerCheck = await registerModel.find({ email });
+    console.log('registerCheck:', registerCheck)
     const hash = await argon2.hash(password);
     console.log('hash:', hash);
     try {
-        if (registerCheck) {
+        if (registerCheck.length !== 0) {
             return res.status(201).send({ message: "User with this email id already have an account", desc: "", register: registerCheck })
         }
         let register = new registerModel({ name, email, password: hash });
