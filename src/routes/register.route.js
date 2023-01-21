@@ -37,7 +37,7 @@ registerRoute.post("/getprofile", async (req, res) => {
 
 registerRoute.post("/register", async (req, res) => {
     const { name, email, password } = req.body;
-    const registerCheck = await registerModel.find({ email });
+    const registerCheck = await registerModel.findOne({ email });
     console.log('registerCheck:', registerCheck)
     const hash = await argon2.hash(password);
     console.log('hash:', hash);
