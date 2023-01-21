@@ -5,8 +5,8 @@ const argon2 = require("argon2");
 const jwt = require("jsonwebtoken")
 
 registerRoute.get("/", async (req, res) => {
-    const register = await registerModel.findOne({});
-    return res.status(200).send({ message: "Registered Users", desc: "", register })
+    const register = await registerModel.find();
+    return res.status(200).send({ message: "Registered Users", desc: "", data: register })
 })
 registerRoute.post("/getprofile", async (req, res) => {
     const { token } = req.body;
