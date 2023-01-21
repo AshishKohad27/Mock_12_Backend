@@ -11,7 +11,7 @@ const PORT = process.env.PORT;
 const app = express();
 
 app.use(express.json());
-app.use(cors())
+app.use(cors());
 app.use("/register", registerRoute);
 app.use("/calculate", calculateRoute);
 
